@@ -18,7 +18,11 @@ namespace tic_tac_toe
             return Utils.ValidateInput(Console.ReadLine(), [1, 2, 3, 4]);
         }
 
-        public static void StartGame(bool vsComputer = false)
+        /// <summary>
+        /// Start the game
+        /// </summary>
+        /// <param name="vsComputer">If true, you play against the computer</param>
+        public static void StartGame(bool vsComputer)
         {
             Console.Clear();
             Console.WriteLine(new string('-', 30) + "\n\tTIC TAC TOE\n" + new string('-', 30));
@@ -56,6 +60,15 @@ namespace tic_tac_toe
                     }
                 }
 
+                if (turnsPlayed == 9)
+                {
+                    Console.Write("IT'S A TIE!\n\n");
+                    Console.Write("Press any key to continue...");
+                    Console.ReadKey();
+
+                    return;
+                }
+                
                 if (vsComputer) Console.Write($"{(turn == 1 ? "Player" : "Computer")} turn: ");
                 else Console.Write("Player " + turn + " turn: ");
 
@@ -90,6 +103,12 @@ namespace tic_tac_toe
             }
         }
 
+        /// <summary>
+        /// Check if there is a winner
+        /// </summary>
+        /// <param name="currentGameBoard">The current board to check positions</param>
+        /// <param name="positions">Value of positions on the board.</param>
+        /// <returns></returns>
         public static string CheckWinner(string[][] currentGameBoard, Dictionary<int, int[]> positions)
         {
             int[][] winningCombinations = [
@@ -133,7 +152,7 @@ namespace tic_tac_toe
         {
             Console.Clear();
             Console.Write(new string('=', 22) + "\n\tRULES\n" + new string('=', 22));
-            Console.Write("\n\nEnter a number that corresponds to the position on the board. \nAlign 3 dots vertically, horizontally or diagonally to win.\n\n");
+            Console.Write("\n\nEnter a number that corresponds to the position on the board. \nAlign 3 figures vertically, horizontally or diagonally to win.\n\n");
 
             DrawBoard([], true);
 
@@ -163,6 +182,12 @@ namespace tic_tac_toe
             Console.Write("\n\n");
         }
 
+        /// <summary>
+        /// Ends the game showing the final board and the winner
+        /// </summary>
+        /// <param name="finalBoard">Resulting board</param>
+        /// <param name="winner">Player who wins the game (or computer)</param>
+        /// <param name="vsComputer">Shows certain messages if the game mode is against the computer.</param>
         public static void EndGame(string[][] finalBoard, string winner, bool vsComputer)
         {
             Console.Clear();
